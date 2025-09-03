@@ -1,10 +1,2 @@
-chrome插件，https://bgp.gd/clientarea.php?action=productdetails&id=%s&page=natacl链接下打开页面，选择批量添加端口开始和结束端口号
-，然后调用post接口https://bgp.gd/clientarea.php?action=productdetails&id=%s&modop=custom&a=createForward，参数为：protocol=3&ext
-_port=%d&int_port=%d&name= protocol恒定为3 ext_port是对外端口号，int_port是对内端口号，在这里两个端口号保持一致
-
-获取页面的cookie,添加到请求的header里
-
-Load this folder as an unpacked extension in Chrome. On the target NAT ACL page, click the
-extension icon, input the start and end ports, and the extension will sequentially send the
-createForward requests for each port. The popup logs the URL, cookie, parameters, and response for
-every port and summarizes which ports succeed or fail.
+chrome插件，
+为bgp.gd的nat机器批量添加转发端口功能
