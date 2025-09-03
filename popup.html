@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+body { min-width: 200px; font-family: sans-serif; }
+label { display: block; margin: 4px 0; }
+</style>
+</head>
+<body>
+  <label>Start Port: <input type="number" id="start" min="1" max="65535" /></label>
+  <label>End Port: <input type="number" id="end" min="1" max="65535" /></label>
+  <button id="submit">Create Forwards</button>
+  <div id="status"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
