@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <style>
-body { min-width: 200px; font-family: sans-serif; }
+body { min-width: 400px; min-height: 300px; font-family: sans-serif; }
 label { display: block; margin: 4px 0; }
+#log { margin-top: 8px; padding: 4px; background: #f0f0f0; height: 180px; overflow: auto; white-space: pre-wrap; }
 </style>
 </head>
 <body>
@@ -12,6 +13,7 @@ label { display: block; margin: 4px 0; }
   <label>End Port: <input type="number" id="end" min="1" max="65535" /></label>
   <button id="submit">Create Forwards</button>
   <div id="status"></div>
+  <pre id="log"></pre>
   <script src="popup.js"></script>
 </body>
 </html>

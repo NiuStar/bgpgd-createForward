@@ -10,11 +10,19 @@ async function getCookieString(url) {
 async function createForward(id, start, end) {
   const baseUrl = `https://bgp.gd/clientarea.php?action=productdetails&id=${id}`;
   const cookie = await getCookieString(baseUrl);
+  const log = document.getElementById('log');
   const status = document.getElementById('status');
+  const successes = [];
+  const failures = [];
   for (let port = start; port <= end; port++) {
+    const url = `${baseUrl}&modop=custom&a=createForward`;
     const body = `protocol=3&ext_port=${port}&int_port=${port}&name=`;
+    log.textContent += `Port ${port}\n`;
+    log.textContent += `  URL: ${url}\n`;
+    log.textContent += `  Cookie: ${cookie}\n`;
+    log.textContent += `  Params: ${body}\n`;
     try {
-      const res = await fetch(`${baseUrl}&modop=custom&a=createForward`, {
+      const res = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -22,14 +30,28 @@ async function createForward(id, start, end) {
         },
         body
       });
-      if (!res.ok) {
-        status.textContent = `Error on port ${port}: ${res.status}`;
-        return;
+      const text = await res.text();
+      log.textContent += `  Response: ${text}\n`;
+      let data;
+      try { data = JSON.parse(text); } catch {}
+      if (data && data.status === 'success') {
+        successes.push(port);
+      } else {
+        failures.push({ port, response: text });
       }
     } catch (e) {
-      status.textContent = `Request failed on port ${port}`;
-      return;
+      log.textContent += `  Error: ${e}\n`;
+      failures.push({ port, response: e.toString() });
     }
+  }
+  log.textContent += `Success ports: ${successes.join(', ') || 'none'}\n`;
+  if (failures.length) {
+    log.textContent += 'Failed ports:\n';
+    failures.forEach(f => {
+      log.textContent += `  ${f.port}: ${f.response}\n`;
+    });
+  } else {
+    log.textContent += 'Failed ports: none\n';
   }
   status.textContent = 'Done';
 }

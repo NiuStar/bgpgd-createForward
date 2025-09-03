@@ -6,4 +6,5 @@ _port=%d&int_port=%d&name= protocol恒定为3 ext_port是对外端口号，int_p
 
 Load this folder as an unpacked extension in Chrome. On the target NAT ACL page, click the
 extension icon, input the start and end ports, and the extension will sequentially send the
-createForward requests for each port.
+createForward requests for each port. The popup logs the URL, cookie, parameters, and response for
+every port and summarizes which ports succeed or fail.
